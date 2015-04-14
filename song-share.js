@@ -14,22 +14,16 @@ if(Meteor.isClient){
 
   Template.upload.events({
     'change input': function (evt){
-      var file = evt.target.files[0],
-          reader = new FileReader();
+      var file = evt.target.files[0];
 
-      reader.onloadend = function (){
-        var self = this;
-
-        Meteor.call('addSong', {
-          title: file.name,
-          data: self.result
-        });
+      var worker = new Worker('readAsDataURL.js');
+      
+      worker.onmessage = function (msg){
+        var song = msg.data[0];
+        Meteor.call('addSong', song);
       };
 
-      //reader.readAsDataURL(file);
-
-      var worker = new Worker('');
-
+      worker.postMessage([file]);
     }
   });
 
@@ -84,7 +78,7 @@ if(Meteor.isServer){
         'Access-Control-Allow-Headers':
             'Origin, X-Requested-With, Content-Type, Accept'
       });
-      res.end('ok');
+      res.end(JSON.stringify( {status: 'ok'} ));
 
     }).listen(HTTP_PORT);
 
