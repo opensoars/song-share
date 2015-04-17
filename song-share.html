@@ -3,58 +3,12 @@
 </head>
 
 <body>
+  <h1>Welcome to Meteor!</h1>
 
-  <div class='container'>
-
-    {{> header}}
-
-    {{> menu}}
-
-    {{#if currentUser}}
-      {{> upload}}
-    {{/if}}
-
-    {{> songs}}
-
-  </div>
-
+  {{> hello}}
 </body>
 
-<template name='header'>
-  <div class='header-container'>
-    <h1 class='header-text'>Share a song!</h1>
-  </div>
-</template>
-
-<template name='menu'>
-  <div class='menu-container'>
-    {{> loginButtons }}
-  </div>
-</template>
-
-<template name='upload'>
-  <div class='upload-container'>
-    <input type='file' id='song_input'>
-  </div>
-</template>
-
-<template name='songs'>
-  <div class='songs-container'>
-    <ul class='songs-list'>
-      {{#each songs}}
-        {{> song}}
-      {{/each}}
-    </ul>
-  </div>
-</template>
-
-<template name='song'>
-  <li class='song-list-element'>
-    <span class='song-title'>{{title}}</span>
-    <audio class='song-audio' src='{{url}}' controls></audio>
-  
-    {{#if isOwner}}
-      <button class='song-remove'>x</button>
-    {{/if}}
-  </li>
+<template name="hello">
+  <button>Click Me</button>
+  <p>You've pressed the button {{counter}} times.</p>
 </template>
